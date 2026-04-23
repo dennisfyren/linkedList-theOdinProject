@@ -68,14 +68,17 @@ export class LinkedList {
   pop() {
     if (this.head === null) return undefined;
     if (this.size == 1) {
+      let temp = this.head;
       this.head = null;
       this.tail = null;
       this.size--;
-      return;
+      return temp.value;
     }
+    let temp = this.head;
     let current = this.head.next;
     this.head.next = current.next;
     this.head = current;
     this.size--;
+    return temp.value;
   }
 }
