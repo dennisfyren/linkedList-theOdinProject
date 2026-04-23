@@ -47,20 +47,35 @@ export class LinkedList {
   }
   getIndex(index) {
     if (index > this.size - 1) return undefined;
-    let nextItem = this.head.next;
-    if (index === 0) return this.head.value;
-    for (let i = 0; i < index - 1; i++) {
-      nextItem = nextItem.next;
+    let current = this.head;
+    for (let i = 0; i <= index - 1; i++) {
+      current = current.next;
     }
-    return nextItem.value;
+    return current.value;
   }
   contains(value) {
+    if (this.head == null) return false;
+    let current = this.head;
     for (let i = 0; i < this.size; i++) {
-      if (value == this.value) {
+      if (value == current.value) {
         return true;
       } else {
-        return false;
+        current = current.next;
       }
     }
+    return false;
+  }
+  pop() {
+    if (this.head === null) return undefined;
+    if (this.size == 1) {
+      this.head = null;
+      this.tail = null;
+      this.size--;
+      return;
+    }
+    let current = this.head.next;
+    this.head.next = current.next;
+    this.head = current;
+    this.size--;
   }
 }
