@@ -108,8 +108,8 @@ export class LinkedList {
     return string;
   }
   insertAt(index, ...values) {
-    if (index > this.size - 1) {
-      throw new RangeError("Index is too large");
+    if (index < 0 || index > this.size - 1) {
+      throw new RangeError("index is out of range");
     }
     values = values.reverse();
     let current = this.head;
@@ -122,5 +122,28 @@ export class LinkedList {
       current.next = newNode;
       this.size++;
     });
+  }
+  removeAt(index) {
+    if (index === 0) {
+      this.pop();
+      return;
+    }
+    if (index < 0 || index > this.size - 1) {
+      throw new RangeError("index is out of range");
+    }
+    let count = 0;
+    let previous;
+    let current = this.head;
+    for (let i = count; i <= index - 1; i++) {
+      previous = current;
+      current = current.next;
+      count = i;
+    }
+    for (let i = count; i < this.size; i++) {
+      let temp = current.next;
+      current = previous;
+      current.next = temp;
+    }
+    this.size--;
   }
 }
