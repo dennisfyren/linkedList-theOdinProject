@@ -81,4 +81,46 @@ export class LinkedList {
     this.size--;
     return temp.value;
   }
+  findIndex(value) {
+    if (this.head == null) return -1;
+    let current = this.head;
+    for (let i = 0; i < this.size; i++) {
+      if (value == current.value) {
+        return `${value} is at index ${i}`;
+      } else {
+        current = current.next;
+      }
+    }
+    return -1;
+  }
+  toString() {
+    if (this.head === null) return undefined;
+    let string = "";
+    let current = this.head;
+    for (let i = 0; i < this.size; i++) {
+      if (current.next == null) {
+        string += `( ${i}. ${current.value}) -> ${current.next}`;
+        continue;
+      }
+      string += `( ${i}. ${current.value}) -> `;
+      current = current.next;
+    }
+    return string;
+  }
+  insertAt(index, ...values) {
+    if (index > this.size - 1) {
+      throw new RangeError("Index is too large");
+    }
+    values = values.reverse();
+    let current = this.head;
+    for (let i = 0; i <= index - 1; i++) {
+      current = current.next;
+    }
+    values.forEach((value) => {
+      const newNode = new Node(value);
+      newNode.next = current.next;
+      current.next = newNode;
+      this.size++;
+    });
+  }
 }
